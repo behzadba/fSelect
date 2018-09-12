@@ -13,6 +13,7 @@
                 searchText: 'Search',
                 noResultsText: 'No results found',
                 showSearch: true,
+                showSelectAll: true,
                 optionFormatter: false
             }, options);
         }
@@ -49,6 +50,10 @@
                 if (this.settings.showSearch) {
                     var search = '<div class="fs-search"><input type="search" placeholder="' + this.settings.searchText + '" /></div>';
                     this.$wrap.find('.fs-dropdown').prepend(search);
+                }
+                if (this.settings.showSelectAll) {
+                    var selectAll = '<div class="fs-selectAll"><input type="checkbox" value="Select All"></div>';
+                    this.$wrap.find('.fs-dropdown').prepend(selectAll);
                 }
                 if ('' !== this.settings.noResultsText) {
                     var no_results_text = '<div class="fs-no-results hidden">' + this.settings.noResultsText + '</div>';
