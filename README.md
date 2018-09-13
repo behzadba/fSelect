@@ -1,5 +1,6 @@
 # fSelect
-A jQuery select box replacement library ([live demo](https://jsfiddle.net/xpvt214o/785263/))
+A jQuery select box replacement library 
+[Live Demo](https://jsfiddle.net/xpvt214o/785263/)
 
 <img src="https://image.ibb.co/g7AcFU/Capture54.png"  />
 
