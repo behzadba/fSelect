@@ -5,7 +5,7 @@ A jQuery select box replacement library ([live demo](https://jsfiddle.net/xpvt21
 
 ### Usage
 ```html
-<select class="your-select-box" name="paramName[]" multiple>
+<select class="your-select-box" name="car">
   <option value="volvo">Volvo</option>
   <option value="saab">Saab</option>
   <option value="opel">Opel</option>
