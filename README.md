@@ -19,6 +19,7 @@ $('.your-select-box').fSelect({
     noResultsText: 'No results found',
     searchText: 'Search',
     showSearch: true
+    showSelectAll: true,
 });
 ```
 
@@ -28,11 +29,12 @@ $('.your-select-box').fSelect({
 * **noResultsText** (str) - the text to show if no choices exist (or an empty string)
 * **searchText** (str) - the search box placeholder text
 * **showSearch** (bool) - show the search box?
+* **showSelectAll** (bool) - show the Select All option?
 
 ### Single vs. multi-select
 
 Add the `multiple` attribute to your `<select>` to enable multi-select:
 
 ```html
-<select class="your-select-box" multiple="multiple">
+<select class="your-select-box" name="paramName[]" multiple>
 ```
