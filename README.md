@@ -24,7 +24,7 @@ $('.your-select-box').fSelect({
     overflowText: '{n} selected',
     noResultsText: 'No results found',
     searchText: 'Search',
-    showSearch: true
+    showSearch: true,
     showSelectAll: true,
 });
 ```
