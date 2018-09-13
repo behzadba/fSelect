@@ -47,13 +47,13 @@
             },
 
             reload: function() {
-                if (this.settings.showSearch) {
+                if (this.settings.showSelectAll) {
+                    var selectAll = '<div class="fs-option fs-selectAll"><span class="fs-checkbox"><i></i></span><div class="fs-option-label">Select All</div></div>';
+                    this.$wrap.find('.fs-dropdown').prepend(selectAll);
+                }
+				if (this.settings.showSearch) {
                     var search = '<div class="fs-search"><input type="search" placeholder="' + this.settings.searchText + '" /></div>';
                     this.$wrap.find('.fs-dropdown').prepend(search);
-                }
-                if (this.settings.showSelectAll) {
-                    var selectAll = '<div class="fs-selectAll"><input type="checkbox" value="Select All"></div>';
-                    this.$wrap.find('.fs-dropdown').prepend(selectAll);
                 }
                 if ('' !== this.settings.noResultsText) {
                     var no_results_text = '<div class="fs-no-results hidden">' + this.settings.noResultsText + '</div>';
@@ -170,6 +170,37 @@
         if ($wrap.hasClass('fs-disabled')) {
             return;
         }
+		//////selectAll Begin
+		if ($(this).hasClass('fs-selectAll')) {
+            console.log('select all clicked3.');
+			
+			
+
+                if ($(this).hasClass('selected')){
+                    $wrap.find('.fs-option[data-index]')
+                        .not('.hidden, .disabled')
+                        .each(function() {
+                            $(this).removeClass('selected');
+                        });
+				} else {
+					$wrap.find('.fs-option[data-index]')
+                        .not('.hidden, .disabled')
+                        .each(function() {
+                            $(this).addClass('selected');
+                        });
+					
+				}
+				
+				
+				var selected = [];
+				$wrap.find('.fs-option.selected').each(function(i, el) {
+					selected.push($(el).attr('data-value'));
+				});
+                
+
+			console.log($(this).hasClass('selected'));
+        }
+		/////// selectAll END 
 
         if ($wrap.hasClass('multiple')) {
             var selected = [];
