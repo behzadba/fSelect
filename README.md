@@ -25,7 +25,7 @@ $('.your-select-box').fSelect({
     noResultsText: 'No results found',
     searchText: 'Search',
     showSearch: true,
-    showSelectAll: true,
+    showSelectAll: true
 });
 ```
 
