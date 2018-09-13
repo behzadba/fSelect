@@ -1,10 +1,16 @@
 # fSelect
 A jQuery select box replacement library ([live demo](https://jsfiddle.net/r0pw7g11/3/))
 
-<img src="http://i.imgur.com/yXOv8DG.png" width="208" height="223" />
+<img src="https://image.ibb.co/g7AcFU/Capture54.png"  />
 
 ### Usage
-
+```html
+<select class="your-select-box" name="paramName[]" multiple>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="opel">Opel</option>
+</select>
+```
 ```javascript
 $('.your-select-box').fSelect();
 ```
