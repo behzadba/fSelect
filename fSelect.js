@@ -112,7 +112,9 @@
                 var settings = this.settings;
                 var labelText = [];
 
-                this.$wrap.find('.fs-option.selected').each(function(i, el) {
+                this.$wrap.find('.fs-option.selected')
+				.not('.fs-selectAll')
+				.each(function(i, el) {
                     labelText.push($(el).find('.fs-option-label').text());
                 });
 
