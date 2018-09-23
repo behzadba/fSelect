@@ -1,7 +1,10 @@
 # fSelect
 A jQuery select box replacement library 
 
-[Live Demo](https://jsfiddle.net/xpvt214o/785263/)
+### Demo
+Click [here](https://jsfiddle.net/xpvt214o/785263/) for a live demo and example
+
+
 
 <img src="https://image.ibb.co/g7AcFU/Capture54.png"  />
 
