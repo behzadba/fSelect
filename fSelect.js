@@ -4,8 +4,7 @@
 
         if ('string' === typeof options) {
             var settings = options;
-        }
-        else {
+        } else {
             var settings = $.extend({
                 placeholder: 'Select some options',
                 numDisplayed: 3,
@@ -51,7 +50,7 @@
                     var selectAll = '<div class="fs-option fs-selectAll"><span class="fs-checkbox"><i></i></span><div class="fs-option-label">Select All</div></div>';
                     this.$wrap.find('.fs-dropdown').prepend(selectAll);
                 }
-				if (this.settings.showSearch) {
+                if (this.settings.showSearch) {
                     var search = '<div class="fs-search"><input type="search" placeholder="' + this.settings.searchText + '" /></div>';
                     this.$wrap.find('.fs-dropdown').prepend(search);
                 }
@@ -65,6 +64,7 @@
                 var choices = this.buildOptions(this.$select);
                 this.$wrap.find('.fs-options').html(choices);
                 this.reloadDropdownLabel();
+                this.reloadSelectAllCheck();
             },
 
             destroy: function() {
@@ -84,12 +84,11 @@
                         choices += '<div class="fs-optgroup-label" data-group="' + $this.optgroup + '">' + $el.prop('label') + '</div>';
                         choices += $this.buildOptions($el);
                         $this.optgroup++;
-                    }
-                    else {
+                    } else {
                         var val = $el.prop('value');
 
                         // exclude the first option in multi-select mode
-                        if (0 < $this.idx || '' != val || ! $this.settings.multiple) {
+                        if (0 < $this.idx || '' != val || !$this.settings.multiple) {
                             var disabled = $el.is(':disabled') ? ' disabled' : '';
                             var selected = -1 < $.inArray(val, $this.selected) ? ' selected' : '';
                             var group = ' g' + $this.optgroup;
@@ -113,25 +112,51 @@
                 var labelText = [];
 
                 this.$wrap.find('.fs-option.selected')
-				.not('.fs-selectAll')
-				.each(function(i, el) {
-                    labelText.push($(el).find('.fs-option-label').text());
-                });
+                    .not('.fs-selectAll')
+                    .each(function(i, el) {
+                        labelText.push($(el).find('.fs-option-label').text());
+                    });
 
                 if (labelText.length < 1) {
                     labelText = settings.placeholder;
-                }
-                else if (labelText.length > settings.numDisplayed) {
+                } else if (labelText.length > settings.numDisplayed) {
                     labelText = settings.overflowText.replace('{n}', labelText.length);
-                }
-                else {
+                } else {
                     labelText = labelText.join(', ');
                 }
 
                 this.$wrap.find('.fs-label').html(labelText);
                 this.$wrap.toggleClass('fs-default', labelText === settings.placeholder);
                 this.$select.change();
+            },
+
+            reloadSelectAllCheck: function() {
+                var $wrap = this.$wrap;
+                var settings = this.settings;
+                var selected = [];
+                var options = [];
+
+                this.$wrap.find('.fs-option.selected')
+                    .not('.fs-selectAll')
+                    .each(function(i, el) {
+                        selected.push($(el).find('.fs-option-label').text());
+                    });
+
+                this.$wrap.find('.fs-option')
+                    .not('.fs-selectAll')
+                    .each(function(i, el) {
+                        options.push($(el).find('.fs-option-label').text());
+                    });
+
+                if (selected.length == options.length) {
+                    $wrap.find('.fs-selectAll').addClass('selected');
+                } else {
+                    $wrap.find('.fs-selectAll').removeClass('selected');
+                }
+
             }
+
+
         }
 
 
@@ -172,37 +197,37 @@
         if ($wrap.hasClass('fs-disabled')) {
             return;
         }
-		//////selectAll Begin
-		if ($(this).hasClass('fs-selectAll')) {
+        //////selectAll Begin
+        if ($(this).hasClass('fs-selectAll')) {
             console.log('select all clicked3.');
-			
-			
 
-                if ($(this).hasClass('selected')){
-                    $wrap.find('.fs-option[data-index]')
-                        .not('.hidden, .disabled')
-                        .each(function() {
-                            $(this).removeClass('selected');
-                        });
-				} else {
-					$wrap.find('.fs-option[data-index]')
-                        .not('.hidden, .disabled')
-                        .each(function() {
-                            $(this).addClass('selected');
-                        });
-					
-				}
-				
-				
-				var selected = [];
-				$wrap.find('.fs-option.selected').each(function(i, el) {
-					selected.push($(el).attr('data-value'));
-				});
-                
 
-			console.log($(this).hasClass('selected'));
+
+            if ($(this).hasClass('selected')) {
+                $wrap.find('.fs-option[data-index]')
+                    .not('.hidden, .disabled')
+                    .each(function() {
+                        $(this).removeClass('selected');
+                    });
+            } else {
+                $wrap.find('.fs-option[data-index]')
+                    .not('.hidden, .disabled')
+                    .each(function() {
+                        $(this).addClass('selected');
+                    });
+
+            }
+
+
+            var selected = [];
+            $wrap.find('.fs-option.selected').each(function(i, el) {
+                selected.push($(el).attr('data-value'));
+            });
+
+
+            console.log($(this).hasClass('selected'));
         }
-		/////// selectAll END 
+        /////// selectAll END 
 
         if ($wrap.hasClass('multiple')) {
             var selected = [];
@@ -210,19 +235,18 @@
             // shift + click support
             if (e.shiftKey && null != window.fSelect.last_choice) {
                 var current_choice = parseInt($(this).attr('data-index'));
-                var addOrRemove = ! $(this).hasClass('selected');
+                var addOrRemove = !$(this).hasClass('selected');
                 var min = Math.min(window.fSelect.last_choice, current_choice);
                 var max = Math.max(window.fSelect.last_choice, current_choice);
 
                 for (i = min; i <= max; i++) {
-                    $wrap.find('.fs-option[data-index='+ i +']')
+                    $wrap.find('.fs-option[data-index=' + i + ']')
                         .not('.hidden, .disabled')
                         .each(function() {
                             $(this).toggleClass('selected', addOrRemove);
                         });
                 }
-            }
-            else {
+            } else {
                 window.fSelect.last_choice = parseInt($(this).attr('data-index'));
                 $(this).toggleClass('selected');
             }
@@ -230,8 +254,7 @@
             $wrap.find('.fs-option.selected').each(function(i, el) {
                 selected.push($(el).attr('data-value'));
             });
-        }
-        else {
+        } else {
             var selected = $(this).attr('data-value');
             $wrap.find('.fs-option').removeClass('selected');
             $(this).addClass('selected');
@@ -240,6 +263,7 @@
 
         $wrap.find('select').val(selected);
         $wrap.find('select').fSelect('reloadDropdownLabel');
+        $wrap.find('select').fSelect('reloadSelectAllCheck');
 
         // fire an event
         $(document).trigger('fs:changed', $wrap);
@@ -299,8 +323,7 @@
 
                 if (is_hidden) {
                     openDropdown($wrap);
-                }
-                else {
+                } else {
                     closeDropdown($wrap);
                 }
             }
@@ -328,8 +351,7 @@
             if (32 == e.which) {
                 return;
             }
-        }
-        else if (null === $wrap) {
+        } else if (null === $wrap) {
             return;
         }
 
@@ -345,20 +367,17 @@
                 window.fSelect.idx = parseInt($prev.attr('data-index'));
                 $wrap.find('.fs-option[data-index=' + window.fSelect.idx + ']').addClass('hl');
                 setScroll($wrap);
-            }
-            else {
+            } else {
                 window.fSelect.idx = -1;
                 $wrap.find('.fs-search input').focus();
             }
-        }
-        else if (40 == e.which) { // down
+        } else if (40 == e.which) { // down
             e.preventDefault();
 
             var $current = $wrap.find('.fs-option[data-index=' + window.fSelect.idx + ']');
             if ($current.length < 1) {
                 var $next = $wrap.find('.fs-option:not(.hidden, .disabled):first');
-            }
-            else {
+            } else {
                 var $next = $current.nextAll('.fs-option:not(.hidden, .disabled)');
             }
 
@@ -368,13 +387,11 @@
                 $wrap.find('.fs-option[data-index=' + window.fSelect.idx + ']').addClass('hl');
                 setScroll($wrap);
             }
-        }
-        else if (32 == e.which || 13 == e.which) { // space, enter
+        } else if (32 == e.which || 13 == e.which) { // space, enter
             e.preventDefault();
 
             $wrap.find('.fs-option.hl').click();
-        }
-        else if (27 == e.which) { // esc
+        } else if (27 == e.which) { // esc
             closeDropdown($wrap);
         }
     });
@@ -402,8 +419,7 @@
         if (itemMax > containerMax) { // scroll down
             var to = $container.scrollTop() + itemMax - containerMax;
             $container.scrollTop(to);
-        }
-        else if (itemMin < containerMin) { // scroll up
+        } else if (itemMin < containerMin) { // scroll up
             var to = $container.scrollTop() - containerMin - itemMin;
             $container.scrollTop(to);
         }
