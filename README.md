@@ -2,7 +2,7 @@
 A jQuery select box replacement library 
 
 ### Demo
-Click [here](https://jsfiddle.net/xpvt214o/785263/) for a live demo and example
+Click [here](https://jsfiddle.net/xpvt214o/785263/) for a live demo and example.
 
 
 
